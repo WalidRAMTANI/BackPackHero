@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="BackpackHero" default="jar" basedir=".">
+    
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="classes"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="doc.dir" value="docs/doc"/>
+    <property name="jar.name" value="BackpackHero.jar"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+            <mkdir dir="${build.dir}"/>
+            <javac srcdir="${src.dir}"
+                   destdir="${build.dir}"
+                   classpathref="classpath"
+                   release="25"
+                   includeantruntime="false">
+                <include name="**/*.java"/>
+            </javac>
+        </target>
+
+    <target name="jar" depends="compile">
+            <mkdir dir="dist"/>
+            <jar destfile="dist/${jar.name}" basedir="${build.dir}">
+                <manifest>
+                    <attribute name="Main-Class" value="SimpleGameData.SimpleGameData"/>
+                </manifest>
+            </jar>
+        </target>
+
+    <target name="javadoc" depends="compile">
+        <mkdir dir="${doc.dir}"/>
+        <javadoc destdir="${doc.dir}"
+                 sourcepath="${src.dir}"
+                 classpathref="classpath"
+                 release="25">
+            <doctitle>Backpack Hero Documentation</doctitle>
+        </javadoc>
+    </target>
+
+</project>
